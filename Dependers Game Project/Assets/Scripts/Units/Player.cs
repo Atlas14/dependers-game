@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class Player : Unit {
 
-    public float moveSpeed;         // Player movement speed
+	// Use this for initialization
+	void Start () {
 
-    public Rigidbody2D body;       // Player's Ridgidbody
+        // Set rigidbody
+        rigidBody = GetComponent<Rigidbody2D>();
 
-    // Use this for initialization
-    void Start()
-    {
-        // Get and store a reference to player ridgidbody
-        body = GetComponent<Rigidbody2D>();
+        // Set player state machine
+        stateMachine.ChangeState(new PlayerStateNormal(this));
     }
 
     // Called per frame - use for non-physics calculations
@@ -30,7 +29,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     // Function to move player on keyboard input
-    void playerMove()
+    public void playerMove()
     {
         // Set axis input to variables
         float xMove = Input.GetAxis("Horizontal");
@@ -38,11 +37,11 @@ public class PlayerController : MonoBehaviour {
 
         // Add movement to player
         //body.AddForce(movement * moveSpeed);
-        body.velocity = new Vector2(xMove * moveSpeed, yMove * moveSpeed);
+        rigidBody.velocity = new Vector2(xMove * moveSpeed, yMove * moveSpeed);
     }
 
     // Function to have the player face the mouse
-    void faceMouse()
+    public void faceMouse()
     {
         // Get Mouse Position
         Vector3 mousePos = Input.mousePosition;

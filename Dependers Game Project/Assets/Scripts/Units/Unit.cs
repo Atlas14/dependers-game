@@ -15,6 +15,4 @@ public abstract class Unit : MonoBehaviour {
 
     public StateMachine stateMachine = new StateMachine();
 
-    
-
 }

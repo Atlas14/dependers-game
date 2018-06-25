@@ -14,34 +14,26 @@ public class Player : Unit {
         stateMachine.ChangeState(new PlayerStateNormal(this));
     }
 
-    // Called per frame - use for non-physics calculations
-    private void Update()
+    // Called per frame before physics calculations
+    private void FixedUpdate()
     {
-        // Face player to mouse
-        faceMouse();
-    }
-
-    // Physics update called before physics calculations per frame
-    void FixedUpdate()
-    {
-        // Move player
-        playerMove();
+        // Run stateMachine update function
+        stateMachine.Update();
     }
 
     // Function to move player on keyboard input
-    public void playerMove()
+    public void PlayerMove()
     {
         // Set axis input to variables
         float xMove = Input.GetAxis("Horizontal");
         float yMove = Input.GetAxis("Vertical");
 
         // Add movement to player
-        //body.AddForce(movement * moveSpeed);
         rigidBody.velocity = new Vector2(xMove * moveSpeed, yMove * moveSpeed);
     }
 
     // Function to have the player face the mouse
-    public void faceMouse()
+    public void FaceMouse()
     {
         // Get Mouse Position
         Vector3 mousePos = Input.mousePosition;

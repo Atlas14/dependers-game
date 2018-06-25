@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerStateNormal : IState {
 
-    Unit owner;
+    Player player;
 
-    public PlayerStateNormal(Unit owner) { this.owner = owner; }
+    public PlayerStateNormal(Player player) { this.player = player; }
 
     public void Enter()
     {
@@ -15,7 +15,11 @@ public class PlayerStateNormal : IState {
 
     public void Execute()
     {
-        
+        // Make Player face the mouse
+        player.FaceMouse();
+
+        // Move Player
+        player.PlayerMove();
     }
 
     public void Exit()

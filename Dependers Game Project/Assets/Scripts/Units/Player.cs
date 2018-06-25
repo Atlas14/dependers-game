@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : Unit {
 
+    public GameObject weapon;
+
 	// Use this for initialization
 	void Start () {
 
@@ -17,8 +19,20 @@ public class Player : Unit {
     // Called per frame before physics calculations
     private void FixedUpdate()
     {
+        
+    }
+
+    // Called per frame - use for non-physics calculations
+    private void Update()
+    {
         // Run stateMachine update function
         stateMachine.Update();
+
+        // Fire bullets on mouse down
+        if (Input.GetMouseButtonDown(0))
+        {
+            FireWeapon();
+        }
     }
 
     // Function to move player on keyboard input
@@ -43,5 +57,10 @@ public class Player : Unit {
         Vector2 dir = new Vector2(mousePos.x - transform.position.x, mousePos.y - transform.position.y);
 
         transform.up = dir;
+    }
+
+    public void FireWeapon()
+    {
+        Instantiate(weapon, transform.position, Quaternion.Euler(new Vector3(0, 0, transform.eulerAngles.z)));
     }
 }

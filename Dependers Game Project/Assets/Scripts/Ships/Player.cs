@@ -6,6 +6,8 @@ public class Player : Unit {
 
     public GameObject weapon;
 
+    public LayerMask hitLayers;
+
     // Function to move player on keyboard input
     public void PlayerMove()
     {
@@ -33,5 +35,24 @@ public class Player : Unit {
     public void FireWeapon()
     {
         Instantiate(weapon, transform.position, Quaternion.Euler(new Vector3(0, 0, transform.eulerAngles.z)));
+    }
+
+    // Test Draw
+    public void DrawReflectionLaser()
+    {
+        RaycastHit2D hit;
+        Vector3 rayDir = transform.up;
+        Vector2 startPoint = (new Vector2(transform.position.x, transform.position.y));
+
+        hit = Physics2D.Raycast(transform.position, rayDir, 1000f, hitLayers);
+
+        //Debug.DrawLine(transform.position, hit.point, Color.red, 0.1f, false);
+
+        if (hit.collider != null)
+        {
+            Debug.DrawLine(startPoint, hit.point, Color.red, 0.01f, false);
+            rayDir = Vector3.Reflect((hit.point - startPoint).normalized, hit.normal);
+            startPoint = hit.point;
+        }
     }
 }

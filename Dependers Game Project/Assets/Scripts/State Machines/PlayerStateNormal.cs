@@ -20,6 +20,14 @@ public class PlayerStateNormal : IState {
 
         // Move Player
         player.PlayerMove();
+
+        // Fire bullets on mouse down
+        if (Input.GetMouseButtonDown(0))
+        {
+            player.FireWeapon();
+        }
+
+        player.DrawReflectionLaser();
     }
 
     public void Exit()

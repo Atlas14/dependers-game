@@ -16,11 +16,5 @@ public class PlayerController : MonoBehaviour {
     void Update () {
         // Run stateMachine update function
         player.stateMachine.Update();
-
-        // Fire bullets on mouse down
-        if (Input.GetMouseButtonDown(0))
-        {
-            player.FireWeapon();
-        }
     }
 }

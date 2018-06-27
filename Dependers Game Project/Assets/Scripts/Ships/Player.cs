@@ -6,35 +6,6 @@ public class Player : Unit {
 
     public GameObject weapon;
 
-	// Use this for initialization
-	void Start () {
-
-        // Set rigidbody
-        rigidBody = GetComponent<Rigidbody2D>();
-
-        // Set player state machine
-        stateMachine.ChangeState(new PlayerStateNormal(this));
-    }
-
-    // Called per frame before physics calculations
-    private void FixedUpdate()
-    {
-        
-    }
-
-    // Called per frame - use for non-physics calculations
-    private void Update()
-    {
-        // Run stateMachine update function
-        stateMachine.Update();
-
-        // Fire bullets on mouse down
-        if (Input.GetMouseButtonDown(0))
-        {
-            FireWeapon();
-        }
-    }
-
     // Function to move player on keyboard input
     public void PlayerMove()
     {

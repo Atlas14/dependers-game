@@ -45,11 +45,9 @@ public class Player : Unit {
         RaycastHit2D hit;
         Vector3 rayDir = transform.up;
         Vector2 startPoint = (new Vector2(transform.position.x, transform.position.y));
-
-        //Debug.DrawLine(transform.position, hit.point, Color.red, 0.1f, false);
+        
         for (int i = 0; i < 10; i++)
         {
-
             hit = Physics2D.Raycast(startPoint, rayDir, 1000f, hitLayers);
 
             if (!hit.collider.tag.Equals("Boundary"))
@@ -57,9 +55,9 @@ public class Player : Unit {
                 tracer.positionCount = i + 2;
                 tracer.SetPosition(i, startPoint);
                 tracer.SetPosition(i + 1, hit.point);
-                //Debug.DrawLine(startPoint, hit.point, Color.red, 0.01f, false);
                 rayDir = Vector3.Reflect((hit.point - startPoint).normalized, hit.normal);
                 startPoint = hit.point;
+                //hit = Physics2D.Raycast(startPoint, rayDir, 1000f, hitLayers);
             }
             else if (hit.collider.tag.Equals("Boundary"))
             {
@@ -67,7 +65,6 @@ public class Player : Unit {
                 tracer.SetPosition(i, startPoint);
                 tracer.SetPosition(i + 1, hit.point);
                 break;
-                //Debug.DrawLine(startPoint, hit.point, Color.red, 0.01f, false);
             }
             else
             {

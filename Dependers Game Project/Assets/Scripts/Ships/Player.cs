@@ -8,6 +8,8 @@ public class Player : Unit {
 
     public LayerMask hitLayers;
 
+    public LineRenderer tracer;
+
     // Function to move player on keyboard input
     public void PlayerMove()
     {
@@ -44,15 +46,34 @@ public class Player : Unit {
         Vector3 rayDir = transform.up;
         Vector2 startPoint = (new Vector2(transform.position.x, transform.position.y));
 
-        hit = Physics2D.Raycast(transform.position, rayDir, 1000f, hitLayers);
-
         //Debug.DrawLine(transform.position, hit.point, Color.red, 0.1f, false);
-
-        if (hit.collider != null)
+        for (int i = 0; i < 10; i++)
         {
-            Debug.DrawLine(startPoint, hit.point, Color.red, 0.01f, false);
-            rayDir = Vector3.Reflect((hit.point - startPoint).normalized, hit.normal);
-            startPoint = hit.point;
+
+            hit = Physics2D.Raycast(startPoint, rayDir, 1000f, hitLayers);
+
+            if (!hit.collider.tag.Equals("Boundary"))
+            {
+                tracer.positionCount = i + 2;
+                tracer.SetPosition(i, startPoint);
+                tracer.SetPosition(i + 1, hit.point);
+                //Debug.DrawLine(startPoint, hit.point, Color.red, 0.01f, false);
+                rayDir = Vector3.Reflect((hit.point - startPoint).normalized, hit.normal);
+                startPoint = hit.point;
+            }
+            else if (hit.collider.tag.Equals("Boundary"))
+            {
+                tracer.positionCount = i + 2;
+                tracer.SetPosition(i, startPoint);
+                tracer.SetPosition(i + 1, hit.point);
+                break;
+                //Debug.DrawLine(startPoint, hit.point, Color.red, 0.01f, false);
+            }
+            else
+            {
+                Debug.Log("ELSE");
+                break;
+            }
         }
     }
 }

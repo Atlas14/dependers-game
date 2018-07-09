@@ -10,7 +10,8 @@ public class PlayerStateNormal : IState {
 
     public void Enter()
     {
-        
+        // Get the line renderer component for the player
+        player.tracer = player.GetComponent<LineRenderer>();
     }
 
     public void Execute()
